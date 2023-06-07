@@ -1,5 +1,8 @@
 from setuptools import setup
 
+with open("requirements.txt", 'r') as dependencies:
+    requirements = [pkg.strip() for pkg in dependencies]
+
 setup(
     name='tinymltoolkit',
     version='0.1',
