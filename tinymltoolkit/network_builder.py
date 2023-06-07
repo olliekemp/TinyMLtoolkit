@@ -30,7 +30,7 @@ class GeneralNNRegressor:
         Returns:
             tf.keras.Model: The best trained model.
         """
-        best_network_params = self.find_best_model_params(n_trials=n_trials)
+        best_network_params = self.find_best_model_params()
         best_model = self.make_model(best_network_params)
         best_model.compile(
             loss=tf.keras.losses.MeanSquaredError(),
@@ -77,7 +77,7 @@ class GeneralNNRegressor:
         print(f'Score: {score / n_splits}, Model size: {self.count_trainable_parameters(model)}')
         return score / n_splits, self.count_trainable_parameters(model)
 
-    def find_best_model_params(self, n_trials):
+    def find_best_model_params(self):
         """
         Find the best model parameters using Optuna's hyperparameter optimization.
 
