@@ -1,7 +1,6 @@
 import tensorflow as tf
 import tensorflow_model_optimization as tfmot
 import numpy as np
-from general_nn_builder import CNNClassifier
 from tqdm import tqdm
 import os
 
@@ -168,26 +167,5 @@ def run_tflite_model(path_to_tflite_model, X_data):
 def get_tflite_model_size(path):
     return os.path.getsize(path)/float(2**20)
 
-
-if __name__ == '__main__':
-    with  tf.device('CPU:0'):
-        (X_train, y_train), (X_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
-        X_train = X_train / 255
-        X_test = X_test / 255
-
-
-
-        model_builder = CNNClassifier(X_train, y_train, n_trials=10)
-        model = model_builder.get_best_trained_model()
-
-        path_to_tflite_model = 'mnist_model.tflite'
-        save_keras_as_tflite_base(model, path_to_tflite_model)
-        y_pred = run_tflite_model(path_to_tflite_model, X_test)
-        print('Uncompressed accuracy: ', np.mean(y_pred.argmax(1) == y_test), 'Uncompressed model size: ', get_tflite_model_size(path_to_tflite_model))
-
-        path_to_compressed_tflite_model = 'mnist_model_compressed.tflite'
-        prune_quantize_save_model(model, X_train, tf.keras.utils.to_categorical(y_train), path_to_compressed_tflite_model)
-        y_pred_comp = run_tflite_model(path_to_compressed_tflite_model, X_test)
-        print('Compressed accuracy: ', np.mean(y_pred.argmax(1) == y_test), 'Compressed model size: ', get_tflite_model_size(path_to_compressed_tflite_model))
 
 
