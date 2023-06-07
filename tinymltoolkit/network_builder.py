@@ -20,7 +20,7 @@ class GeneralNNRegressor:
         self.y = y
         self.n_trials = n_trials
 
-    def get_best_trained_model(self:
+    def get_best_trained_model(self):
         """
         Get the best trained model by finding the best model parameters and training the model.
 
