@@ -33,7 +33,7 @@ def prune_quantize_save_model(model, X, y, path_to_tflite_model, BATCH_SIZE=1024
     pruned_model = prune_low_magnitude(model, **pruning_params)
 
     # Use a smaller learning rate for fine-tuning
-    opt = tf.keras.optimizers.Adam(learning_rate=1e-5)
+    opt = tf.keras.optimizers.legacy.Adam(learning_rate=1e-5)
 
     pruned_model.compile(
         loss=tf.keras.losses.CategoricalCrossentropy(),
