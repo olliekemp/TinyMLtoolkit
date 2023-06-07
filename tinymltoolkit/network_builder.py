@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 class GeneralNNRegressor:
-    def __init__(self, X, y):
+    def __init__(self, X, y, n_trials=50):
         """
         General Neural Network (NN) regressor.
 
@@ -18,8 +18,9 @@ class GeneralNNRegressor:
         """
         self.X = X
         self.y = y
+        self.n_trials = n_trials
 
-    def get_best_trained_model(self, n_trials=50):
+    def get_best_trained_model(self:
         """
         Get the best trained model by finding the best model parameters and training the model.
 
@@ -87,7 +88,7 @@ class GeneralNNRegressor:
             dict: The best model parameters.
         """
         study = optuna.create_study(directions=['minimize', 'minimize'])
-        study.optimize(self.objective, n_trials)
+        study.optimize(self.objective, self.n_trials)
 
         vals = np.array([[i.values[0], i.values[1]] for i in study.trials])
         vals[:, 0] = 1 - (vals[:, 0] - vals[:, 0].min()) / (vals[:, 0].max() - vals[:, 0].min())
