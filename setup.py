@@ -6,10 +6,5 @@ setup(
     description='Functions to train and compress neural networks',
     author='Ollie Kemp',
     packages = setuptools.find_packages(),
-    install_requires=[
-        'numpy',
-        'tensorflow',
-        'optuna',
-        'scikit-learn',
-    ],
+    install_requires=requirements
 )
